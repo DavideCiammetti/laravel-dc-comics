@@ -13,8 +13,8 @@ class ComicsController extends Controller
      */
     public function index()
     {
-        $comic = Comic::all();
-        return view('comics_management.showList', compact('comic'));
+        $comics = Comic::all();
+        return view('comics_management.showList', compact('comics'));
     }
 
     /**
@@ -52,11 +52,12 @@ class ComicsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Comic $comics)
+    public function show(string $id)
+    // public function show(Comic $comic)
     {
-        // $comics = Comic::find($id);
+        $comic = Comic::find($id);
 
-        return view('comics_management.showSingleComics', compact('comics'));
+        return view('comics_management.showSingleComics', compact('comic'));
     }
 
 
