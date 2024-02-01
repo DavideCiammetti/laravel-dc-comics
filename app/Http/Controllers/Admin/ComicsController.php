@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Guest;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class ComicsController extends Controller
 {
     /**
      * Display a listing of the resource.
