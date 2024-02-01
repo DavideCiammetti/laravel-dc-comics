@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>list comics</title>
-    @vite('resources/js/app.js')
+    <title>comics</title>
 </head>
 <body>
-   <h1>home page</h1>
-   <a href="{{ route('comics_management.index') }}">vai alla lista dei fumetti</a>
+    <div>
+        {{$comics->title}}
+        <a href="{{ route('comics_management.index') }}">Torna alla lista dei fumetti</a>
+    </div>
 </body>
 </html>

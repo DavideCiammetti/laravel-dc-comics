@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comic;
 use Illuminate\Http\Request;
 
 class ComicsController extends Controller
@@ -12,7 +13,8 @@ class ComicsController extends Controller
      */
     public function index()
     {
-        //
+        $comic = Comic::all();
+        return view('comics_management.showList', compact('comic'));
     }
 
     /**
@@ -20,7 +22,7 @@ class ComicsController extends Controller
      */
     public function create()
     {
-        //
+        return view('comics_management.createComix');
     }
 
     /**
@@ -28,16 +30,52 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $comic = new Comic();
+
+        $comic->title = $data['title'];
+        $comic->type = $data['type'];
+        $comic->description = $data['description'];
+        $comic->price = $data['price'];
+        $comic->sale_date = $data['sale_date'];
+        $comic->thumb  = $data['thumb'];
+        $comic->series = $data['series'];
+        $comic->artists = $data['artists'];
+        $comic->writers  = $data['writers'];
+
+        $comic->save();
+
+        return redirect()->route('comics_management.show', $comic->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comic $comics)
     {
-        //
+        // $comics = Comic::find($id);
+
+        return view('comics_management.showSingleComics', compact('comics'));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Show the form for editing the specified resource.
