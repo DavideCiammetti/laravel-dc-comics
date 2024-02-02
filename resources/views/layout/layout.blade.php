@@ -10,6 +10,5 @@
 <body>
     @include('components.header')
     @include('components.main')
-    {{-- @include('components.footer') --}}
 </body>
 </html>

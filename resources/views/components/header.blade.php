@@ -5,10 +5,10 @@
                 <a href="/">Home Page</a>
             </li>
             <li class="hover">
-                <a href="{{ route('comics_management.index') }}">comics list</a>
+                <a href="{{ route('comics.index') }}">comics list</a>
             </li>
             <li class="hover">
-                <a href="{{route('comics_management.create')}}">create a new comic</a>
+                <a href="{{route('comics.create')}}">create a new comic</a>
             </li>
         </ul>
     </nav>

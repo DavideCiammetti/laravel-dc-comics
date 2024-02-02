@@ -15,7 +15,7 @@
                     </div>
                     <p>price: {{$comic->price}} $</p>
                     <p>date: {{$comic->sale_date}}</p>
-                    <span> <a href="{{route('comics_management.show', $comic->id)}}">vedi dettagli</a></span>
+                    <span> <a href="{{route('comics.show', $comic->id)}}">vedi dettagli</a></span>
                 </div>
             </div>
             @endforeach

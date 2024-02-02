@@ -8,7 +8,7 @@
                 <p class="card-text">Writers: {{$comic->writers}}</p>
                 <p class="card-text">Artists: {{$comic->artists}}</p>
                 <p>price: {{$comic->price}} $</p>
-                <span><a href="{{ route('comics_management.index') }}">Torna alla lista dei fumetti</a></span>
+                <span><a href="{{ route('comics.index') }}">Torna alla lista dei fumetti</a></span>
             </div>
         </div>
 

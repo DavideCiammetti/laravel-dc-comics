@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('main')
-  <form class="d-flex flex-column align-items-center g-3" action="{{route('comics_management.store')}}" method="POST">
+  <form class="d-flex flex-column align-items-center g-3" action="{{route('comics.store')}}" method="POST">
       @csrf
       <div class="col-md-4">
         <label for="nputTitle" class="form-label">Title</label>
