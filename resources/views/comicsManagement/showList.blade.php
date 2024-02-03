@@ -15,7 +15,10 @@
                     </div>
                     <p>price: {{$comic->price}} $</p>
                     <p>date: {{$comic->sale_date}}</p>
-                    <span> <a href="{{route('comics.show', $comic->id)}}">vedi dettagli</a></span>
+                   <div class="d-flex flex-column">
+                        <span class="border p-1 mb-2"><a href="{{route('comics.show', $comic->id)}}">vedi dettagli</a></span>
+                        <span class="border p-1"><a href="{{route('comics.edit', $comic->id)}}">modifica</a></span>
+                   </div>
                 </div>
             </div>
             @endforeach
