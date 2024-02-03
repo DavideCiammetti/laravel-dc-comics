@@ -14,7 +14,7 @@ class ComicsController extends Controller
     public function index()
     {
         $comics = Comic::all();
-        return view('comics_management.showList', compact('comics'));
+        return view('comicsManagement.showList', compact('comics'));
     }
 
     /**
@@ -22,7 +22,7 @@ class ComicsController extends Controller
      */
     public function create()
     {
-        return view('comics_management.createComix');
+        return view('comicsManagement.createComix');
     }
 
     /**
@@ -46,7 +46,7 @@ class ComicsController extends Controller
 
         $comic->save();
 
-        return redirect()->route('comics_management.show', $comic->id);
+        return redirect()->route('comics.show', $comic->id);
     }
 
     /**
@@ -54,41 +54,41 @@ class ComicsController extends Controller
      */
     public function show(Comic $comic)
     {
-        return view('comics_management.showSingleComics', compact('comic'));
+        return view('comicsManagement.showSingleComics', compact('comic'));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Comic $comic)
     {
-        //
+        // $comics = Comic::findOrFail($id);
+        //  dd($comics);
+        return view('comicsManagement.edit', compact('comic'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        $data = $request->all();
+
+        $comic->update($data);
+
+        
+        // $comic->title = $data['title'];
+        // $comic->type = $data['type'];
+        // $comic->description = $data['description'];
+        // $comic->price = $data['price'];
+        // $comic->sale_date = $data['sale_date'];
+        // $comic->thumb  = $data['thumb'];
+        // $comic->series = $data['series'];
+        // $comic->artists = $data['artists'];
+        // $comic->writers  = $data['writers'];
+
+        // $comic->save();
+       return redirect()->route('comics.show', $comic->id);
     }
 
     /**
