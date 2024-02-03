@@ -16,8 +16,16 @@
                     <p>price: {{$comic->price}} $</p>
                     <p>date: {{$comic->sale_date}}</p>
                    <div class="d-flex flex-column">
-                        <span class="border p-1 mb-2"><a href="{{route('comics.show', $comic->id)}}">vedi dettagli</a></span>
-                        <span class="border p-1"><a href="{{route('comics.edit', $comic->id)}}">modifica</a></span>
+                        <span class=" "><a href="{{route('comics.show', $comic->id)}}">vedi dettagli</a></span>
+                        <span class="mb-1"><a href="{{route('comics.edit', $comic->id)}}">modifica</a></span>
+                   </div>
+                   <div>
+                        <form action="{{route('comics.destroy', $comic->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <input type="submit" value="DELETE">
+                        </form>
                    </div>
                 </div>
             </div>
