@@ -59,6 +59,8 @@ mentre le funzioni nel controller le colleghiamo alle pagine interessate da tene
       }
 
     °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+    un altro modo per inserire i dati nello store è usando:
+      $comic->fill($data); quindi non avremo l'elenco dei dati da modificare 
 - SHOW la funzione show() serve per prendere gli elementi per id quindi prendera il singolo elemnto
 
 
@@ -88,3 +90,9 @@ per quanto riguarda update serve appunto nel mandare i dati modificati al db e v
 
         $comic->update($data);------->questo esegue per noi l'operzione di assegnare i valori a $comic
         return redirect()->route('comics.show', $comic->id);
+
+Ma arrivati fin qui con il secondo modo scritto vedremo un errore e questo perche non abbiamo inserito 2 proprieta che vanno a specificare la protezione dei campi esono:
+
+FILLABLE---> il quale ci permette di inserire secondo la sua sintassi---> **protected $fillable = ['nome-campo_da_modificare'];
+            quindi come si può intuire all'interno di fillable andiamo ad inserire solo i campi che vogliamo modificare e gli altri non verranno toccati 
+GUARDED----> Il quale al contrario di fillable in automatico ci sta inserendo tutti i campi della tabella e noi scriviamo al suo interno quelli che NON vogliamo modificare es:--->  protected $guarded = ['nome_campo_da_non_modificare'];
