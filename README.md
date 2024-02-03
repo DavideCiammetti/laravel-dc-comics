@@ -60,3 +60,31 @@ mentre le funzioni nel controller le colleghiamo alle pagine interessate da tene
 
     °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 - SHOW la funzione show() serve per prendere gli elementi per id quindi prendera il singolo elemnto
+
+
+## aggiornare modificare ed eliminare (PUT/PATCH, DELETE)
+
+----------EDIT-------------
+
+per iniziare partiamo con edit()  il metodo che ci mette a disposizione resources di laravel per andare a prendere i campi di una riga nella nostra tabella per poi modificarli, edit si aspetta un indce e la sua path sarà--> in questo caso coics\{index}\edit
+
+infatti nell'edit noi prendiamo i dati di un singolo id e una volta modificati inviamo il form e sarà il seconod metodo ad accogliere i dati modificati e cioe update().
+Ma restando su edit() nel form si aspetta 2 metodi diversi oltre il post o PUT O PATCH---> Supponiamo che vogliamo usare PUT, si deve mettere sotto il codice @csfr con @method('PUT')
+
+----------UPDATE-------------
+
+per quanto riguarda update serve appunto nel mandare i dati modificati al db e volendo se necessario mostrarli con il metodo show a schermo, ma per prendere i dati modificati possiamo usare 2 modi, perche update() prevede che al suo interno vengano passate le informazioni dei dati che si vogliono modificare:
+
+1) possiamo inserire tuttla lista dei dati da modificare come---->
+
+        $comic->title = $data['title'];
+        $comic->type = $data['type'];
+        $comic->description = $data['description'];
+        $comic->save();
+        return redirect()->route('comics.show', $comic->id);
+2) usando l'istanza del models come parametro per la funzione update(Comic $comic)
+
+        $data = $request->all();----->prima prendiamo tutti dati dalla tabella
+
+        $comic->update($data);------->questo esegue per noi l'operzione di assegnare i valori a $comic
+        return redirect()->route('comics.show', $comic->id);
