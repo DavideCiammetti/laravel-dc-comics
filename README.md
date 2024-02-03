@@ -37,10 +37,15 @@ per creare una migration usiamo il comando ---> **php artisan make:migration nom
 
 nel file web.php in routes dobbiamo lasciare --->Route::get('/', function () {return view('welcome');});   che rappresenta la nostra home page
 mentre le funzioni nel controller le colleghiamo alle pagine interessate da tenere a mente che:
+------------------------INDEX-------------------------------
 
-- INDEX--> la funzione index() rappresenta la pagina nella quale prendiamo i dati (GET) 
-- CREATE--> la funzione create() viene usata per mostrare il form che usiamo per andare ad inserire i dati nel db 
+ la funzione index() rappresenta la pagina nella quale prendiamo i dati (GET) 
+
+-----------------------CREATE-------------------------------
+
+la funzione create() viene usata per mostrare il form che usiamo per andare ad inserire i dati nel db 
     per il collegamento tra form e db usiamo un altra funzione ciore STORE(). #######IMPORTANTE######## ---> IL NAME="" ALL'INTERNO DEI CAMPI DEL FORM DEVE ESSERE IDENTICO ALLE CHIAVI DEL DATABASE 
+------------------------STORE-------------------------------
 
     esempio di una store funzione--->
     °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
@@ -84,6 +89,7 @@ per quanto riguarda update serve appunto nel mandare i dati modificati al db e v
         $comic->description = $data['description'];
         $comic->save();
         return redirect()->route('comics.show', $comic->id);
+
 2) usando l'istanza del models come parametro per la funzione update(Comic $comic)
 
         $data = $request->all();----->prima prendiamo tutti dati dalla tabella
@@ -96,3 +102,26 @@ Ma arrivati fin qui con il secondo modo scritto vedremo un errore e questo perch
 FILLABLE---> il quale ci permette di inserire secondo la sua sintassi---> **protected $fillable = ['nome-campo_da_modificare'];
             quindi come si può intuire all'interno di fillable andiamo ad inserire solo i campi che vogliamo modificare e gli altri non verranno toccati 
 GUARDED----> Il quale al contrario di fillable in automatico ci sta inserendo tutti i campi della tabella e noi scriviamo al suo interno quelli che NON vogliamo modificare es:--->  protected $guarded = ['nome_campo_da_non_modificare'];
+
+-------------------------------DELETE----------------------------------------
+
+Per eliminare un elemento usiamo il metodo DESTROY:
+
+ public function destroy(Comic $comic)
+  {
+      $comic->delete();
+      return redirect()->route('comics.index', $comic->id);
+  }
+
+anche in questo caso possiamo usare piu modi per prendere l'istanza di comic quinid usando il find():
+       $comic = Comic::findOrFail($id);--->oppure---> $comic = Comic::find($id);
+       la differenza è che se un elemeto è nullo fail nel primo caso
+
+------>per usare pero destroy() dobbiamo NECESSARIAMENTE creare un form che ci porti proprio a destroy perche dobbiamo usare il method('DELETE'):
+        <form action="{{route('comics.destroy', $comic->id)}}" method="POST">----> ROUTE CHE CI PORTA A DESTROY ALLA QUALE PASSIAMO INDEX CORRENTE
+        
+            @csrf--------->CODICE DI SICUREZZA
+            @method('DELETE')---------->METHOD DELETE
+
+            <input type="submit" value="DELETE">
+        </form>
