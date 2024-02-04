@@ -27,12 +27,14 @@
                    <div class="delete-form alert alert-danger position-absolute form-container-{{$key}} d-none" role="alert">
                        <p class="f-size-alert"> se vuoi eliminarlo premi Delete altrimenti annulla</p>
                         <div class="d-flex">
+                            {{-- form per bottone cancella card --}}
                             <form action="{{route('comics.destroy', $comic->id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
     
                                 <input type="submit" value="Delete">
                             </form>
+                            {{-- button annulla cancellazione --}}
                             <input class="ms-2 button-annulla-{{$key}}" type="submit" value="Annulla">
                         </div>
                   </div>

@@ -7,8 +7,9 @@ import * as bootstrap from "bootstrap";
 
 //process images
 import.meta.glob(["../img/**"]);
-
+// ciclo for per dare l'indice alle classi html
 for(let i = 0; i < 20; i++){
+// prendo elementi html aggiungendo l'indice i 
 const button = document.querySelector('.button-annulla-'+i);
 let formContainer = document.querySelector('.form-container-'+i);
 const deleteButton = document.querySelector('.js-delete-'+i);
