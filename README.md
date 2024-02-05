@@ -160,20 +160,32 @@ In realtà dipende dal caso, per ora possono essercene 2, in caso di **creazione
 
 2) possiamo creare a mano una funzione validator: 
 
-        private function validation($data){ 
-        $validation = Validator::make($data,[
+       private function validation($data){
+
+        $validator = Validator::make($data,[
             'title'=>'required|max:5',
             'description'=>'required|min:20|max:255',
+            'thumb'=>'required',
+            'price'=>'required',
+            'series'=>'nullable',
+            'sale_date'=>'nullable',
+            'type'=>'nullable',
+            'artists'=>'nullable',
+            'writers'=>'nullable'
         ],
         [
-            'title.require'=> 'il titolo è obbligatorio',
+            'title.required'=> 'il titolo è obbligatorio',
             'title.max'=> 'massimo 5 caratteri',
-            'description.require'=> 'il campo description è obbligatorio',
+            'description.required'=> 'il campo description è obbligatorio',
             'description.min'=> 'minimo 20 caratteri',
-             'description.max'=> 'massimo 255 caratteri',
+            'description.max'=> 'massimo 255 caratteri',
+            'thumb.required'=>'campo obbligatorio',
+            'price.require'=>'campo obbligatorio',
+            'thumb.required'=>'campo obbligatorio',
         ])->validate();
-
-        return $validation;
+        return $validator;
     }
 
-    ------------>nello store()------->    $data = $this->validation($request->all());
+    ------------>nello store()------->$data = $this->validation($request->all()); al posto di--->  $data = $request->all();
+        
+3) creare tramite il comando ---php artisan make:request nome_request, il file che ospiterà le validazioni, nel return creeremo un array associativo con i campi 

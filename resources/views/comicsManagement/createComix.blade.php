@@ -24,7 +24,11 @@
       </div>
       <div class="col-md-4">
         <label for="inputPrice" class="form-label">Price</label>
-        <input type="number" class="form-control" name="price" id="inputPrice" value="{{old('price')}}">
+        <input type="number" class="form-control @error('title') is-invalid @enderror" name="price" id="inputPrice" value="{{old('price')}}">
+        {{-- messaggio di errore --}}
+        @error('title')
+          <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
       </div>
       <div class="col-md-4">
           <label for="inputSeries" class="form-label">Series</label>
@@ -36,7 +40,10 @@
       </div>
       <div class="col-md-4">
           <label for="inputImg" class="form-label">Thumb</label>
-          <input type="text" class="form-control" name="thumb" id="inputImg">
+          <input type="text" class="form-control @error('title') is-invalid @enderror" name="thumb" id="inputImg" value="{{old('thumb')}}">
+          @error('title')
+              <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
       </div>
       <div class="col-md-4">
           <label for="inputdesc" class="form-label">Description</label>

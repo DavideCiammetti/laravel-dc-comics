@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreComicsRequest;
+use App\Http\Requests\UpdateComicsRequest;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -30,10 +32,10 @@ class ComicsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreComicsRequest $request)
     {
         // $data = $request->all();
-        $data = $this->validation($request->all());
+        $data = $request->validated();
         $comic = new Comic();
 
         $comic->fill($data);
@@ -66,10 +68,11 @@ class ComicsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comic $comic)
+    public function update(UpdateComicsRequest $request, Comic $comic)
     {
         // $data = $request->all();
-        $data = $this->validation($request->all());
+        // $data = $this->validation($request->all());
+        $data = $request->validated();
         $comic->update($data);
 
        return redirect()->route('comics.show', $comic->id);
@@ -84,29 +87,29 @@ class ComicsController extends Controller
         return redirect()->route('comics.index', $comic->id);
     }
 
-    private function validation($data){
+    // private function validation($data){
 
-        $validator = Validator::make($data,[
-            'title'=>'required|max:5',
-            'description'=>'required|min:20|max:255',
-            'thumb'=>'required',
-            'price'=>'required',
-            'series'=>'nullable',
-            'sale_date'=>'nullable',
-            'type'=>'nullable',
-            'artists'=>'nullable',
-            'writers'=>'nullable'
-        ],
-        [
-            'title.required'=> 'il titolo è obbligatorio',
-            'title.max'=> 'massimo 5 caratteri',
-            'description.required'=> 'il campo description è obbligatorio',
-            'description.min'=> 'minimo 20 caratteri',
-            'description.max'=> 'massimo 255 caratteri',
-            'thumb.required'=>'campo obbligatorio',
-            'price.require'=>'campo obbligatorio',
-            'thumb.required'=>'campo obbligatorio',
-        ])->validate();
-        return $validator;
-    }
+    //     $validator = Validator::make($data,[
+    //         'title'=>'required|max:5',
+    //         'description'=>'required|min:20|max:255',
+    //         'thumb'=>'required',
+    //         'price'=>'required',
+    //         'series'=>'nullable',
+    //         'sale_date'=>'nullable',
+    //         'type'=>'nullable',
+    //         'artists'=>'nullable',
+    //         'writers'=>'nullable'
+    //     ],
+    //     [
+    //         'title.required'=> 'il titolo è obbligatorio',
+    //         'title.max'=> 'massimo 5 caratteri',
+    //         'description.required'=> 'il campo description è obbligatorio',
+    //         'description.min'=> 'minimo 20 caratteri',
+    //         'description.max'=> 'massimo 255 caratteri',
+    //         'thumb.required'=>'campo obbligatorio',
+    //         'price.require'=>'campo obbligatorio',
+    //         'thumb.required'=>'campo obbligatorio',
+    //     ])->validate();
+    //     return $validator;
+    // }
 }
