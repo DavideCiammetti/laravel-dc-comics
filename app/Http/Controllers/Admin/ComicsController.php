@@ -32,16 +32,8 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title'=>'required|max:5',
-            // 'title' => [
-            //     'required',
-            //     Rule::in(['first-zone', 'second-zone']),
-            // ],
-            'description'=>'required|min:20|max:255',
-        ]);
-
-        $data = $request->all();
+        // $data = $request->all();
+        $data = $this->validation($request->all());
         $comic = new Comic();
 
         $comic->fill($data);
@@ -76,8 +68,8 @@ class ComicsController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        $data = $request->all();
-
+        // $data = $request->all();
+        $data = $this->validation($request->all());
         $comic->update($data);
 
        return redirect()->route('comics.show', $comic->id);
@@ -90,5 +82,31 @@ class ComicsController extends Controller
     {
         $comic->delete();
         return redirect()->route('comics.index', $comic->id);
+    }
+
+    private function validation($data){
+
+        $validator = Validator::make($data,[
+            'title'=>'required|max:5',
+            'description'=>'required|min:20|max:255',
+            'thumb'=>'required',
+            'price'=>'required',
+            'series'=>'nullable',
+            'sale_date'=>'nullable',
+            'type'=>'nullable',
+            'artists'=>'nullable',
+            'writers'=>'nullable'
+        ],
+        [
+            'title.required'=> 'il titolo è obbligatorio',
+            'title.max'=> 'massimo 5 caratteri',
+            'description.required'=> 'il campo description è obbligatorio',
+            'description.min'=> 'minimo 20 caratteri',
+            'description.max'=> 'massimo 255 caratteri',
+            'thumb.required'=>'campo obbligatorio',
+            'price.require'=>'campo obbligatorio',
+            'thumb.required'=>'campo obbligatorio',
+        ])->validate();
+        return $validator;
     }
 }

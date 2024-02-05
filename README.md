@@ -157,3 +157,23 @@ In realtà dipende dal caso, per ora possono essercene 2, in caso di **creazione
                 Rule::in(['nome1', 'nome2']),-->title può avere solo 'nome1' o 'nome2' come valori
             ],
         ]);
+
+2) possiamo creare a mano una funzione validator: 
+
+        private function validation($data){ 
+        $validation = Validator::make($data,[
+            'title'=>'required|max:5',
+            'description'=>'required|min:20|max:255',
+        ],
+        [
+            'title.require'=> 'il titolo è obbligatorio',
+            'title.max'=> 'massimo 5 caratteri',
+            'description.require'=> 'il campo description è obbligatorio',
+            'description.min'=> 'minimo 20 caratteri',
+             'description.max'=> 'massimo 255 caratteri',
+        ])->validate();
+
+        return $validation;
+    }
+
+    ------------>nello store()------->    $data = $this->validation($request->all());

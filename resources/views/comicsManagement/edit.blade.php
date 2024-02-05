@@ -6,7 +6,7 @@
       @method('PUT')
       <div class="col-md-4">
         <label for="nputTitle" class="form-label">Title</label>
-        <input type="text" class="form-control" name="title" value="{{$comic->title}}">
+        <input type="text" class="form-control" name="title" value="{{old('description', $comic->title)}}">
       </div>
       <div class="col-md-4">
         <label for="inputPrice" class="form-label">Price</label>
@@ -26,7 +26,7 @@
       </div>
       <div class="col-md-4">
           <label for="inputdesc" class="form-label">Description</label>
-          <input type="text" class="form-control" name="description" id="inputdesc" value="{{$comic->description}}">
+          <input type="text" class="form-control" name="description" id="inputdesc" value="{{old('description', $comic->description)}}">
         </div>
         <div class="col-md-4">
             <label for="inputtype" class="form-label">Type</label>
