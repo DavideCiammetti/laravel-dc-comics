@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ComicsController extends Controller
 {
@@ -30,8 +32,16 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $request->validate([
+            'title'=>'required|max:5',
+            // 'title' => [
+            //     'required',
+            //     Rule::in(['first-zone', 'second-zone']),
+            // ],
+            'description'=>'required|min:20|max:255',
+        ]);
 
+        $data = $request->all();
         $comic = new Comic();
 
         $comic->fill($data);

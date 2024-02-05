@@ -125,3 +125,35 @@ anche in questo caso possiamo usare piu modi per prendere l'istanza di comic qui
 
             <input type="submit" value="DELETE">
         </form>
+
+
+-----------------------------------GESTIONE DEGLI ERRORI--------------------------------------
+
+per gestire gli errori e quindi validare i campi che stiamo inserendo possiamo usare diversi modi, ma prima di elencarli dobbiamo specificare dove deve essere inserita la validazione.
+In realtà dipende dal caso, per ora possono essercene 2, in caso di **creazione** di un elmento, e quindi nello store nel controller oppure in caso di modifica del dato e quindi nel **update**.
+
+## validazione all'iterno di store e update 
+
+1) per validare i nostri dati nei metodi store e update dobbiamo--->
+
+         public function store(Request $request){
+        $request->validate([------->usare l'istanza di Request che portiamo come parametro alla funzione
+            'title'=>'required|max:5',----------> prendere il campo della tabella e tramite array associativo specificare le validazioni
+        ]);
+
+        $data = $request->all();
+        $comic = new Comic();
+
+        $comic->fill($data);
+        $comic->save();
+
+        return redirect()->route('comics.show', $comic->id);
+    }
+
+    ----SPECIFICARE QUALI CAMPI L'UTENTE PUO' INSERIRE
+    $request->validate([
+            'title' => [  
+                'required',
+                Rule::in(['nome1', 'nome2']),-->title può avere solo 'nome1' o 'nome2' come valori
+            ],
+        ]);
